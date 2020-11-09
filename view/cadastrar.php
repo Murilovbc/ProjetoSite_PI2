@@ -27,7 +27,7 @@
 				<h3>Cadastrar</h3>
 			</div>
 			<div class="card-body">
-				<form method="POST" action="">
+				<form method="POST" action="cadastrar.php">
 					<div class="row align-items-center remember">
 						
 					</div>
