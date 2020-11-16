@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,9 +25,15 @@
 				<h3>Cadastrar</h3>
 			</div>
 			<div class="card-body">
-				<form method="POST" action="cadastro.php">
+				<form method="POST" action="processaCadastro.php">
 					<div class="row align-items-center remember">
-						
+						<?php
+							session_start();
+							if (isset($_SESSION['msg'])) {
+								echo $_SESSION['msg'];
+								unset($_SESSION['msg']);
+							}
+						?>
 					</div>
 
 					<!--Nome-->

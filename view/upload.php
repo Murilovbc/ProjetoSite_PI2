@@ -43,7 +43,13 @@
     </div>
   </nav>
 
-  
+  <?php 
+    session_start();
+    if (isset($_SESSION['msg'])){
+      echo '<div class="col-md-6 offset-md-3 mt-5"><p>'.$_SESSION['msg'].'</p></div>';
+      unset($_SESSION['msg']);
+    }
+  ?>
 	
 	<div class="col-md-6 offset-md-3 mt-5">
         

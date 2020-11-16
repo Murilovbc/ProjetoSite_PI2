@@ -29,7 +29,7 @@
 				<h3>Log In</h3>
 			</div>
 			<div class="card-body">
-				<form method="POST" action="post.php">
+				<form method="POST" action="processaLogin.php">
 					<div class="row align-items-center remember">
 						
 					</div>
