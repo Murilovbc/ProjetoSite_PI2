@@ -1,3 +1,7 @@
+<?php
+  session_start();
+  include_once("../control/conexao.php");
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +57,20 @@
     
       <!-- Post Content Column -->
       <div class="col-lg-8">
-      	
+      	<?php  
+          $inner = "SELECT * FROM PESSOAS JOIN PUBLICACAO ON PESSOAS.ID = PUBLICACAO.IDP ORDER BY PUBLICACAO.ID DESC";
+
+          $resultado_p = mysqli_query($conn, $inner);
+          while ($linhas_p = mysqli_fetch_assoc($resultado_p)) {
+            echo '<h1 class="mt-4">'.$linhas_p["TITULO"].'</h1>';
+            echo '<p class="lead">by '.$linhas_p["NOME"].'</p><hr>';
+            echo '<p>Publicado em '.$linhas_p["DATA"].'</p><hr>';
+            echo '<p>Gênero: '.$linhas_p["GENERO"].'</p><hr>';
+            echo '<img class="img-fluid rounded" src="../control/img/'.$linhas_p["IMAGEM"].'" width="600" height="200"/><hr>';
+            echo '<p>Análise do filme: </p>';
+            echo '<p>'.wordwrap($linhas_p["DESCRICAO"],75,'<br />',1).'</p><hr><hr>';
+          }
+       ?>
       </div>
 
       <!-- Sidebar Widgets Column -->

@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +43,8 @@
   <?php 
     session_start();
     if (isset($_SESSION['msg'])){
-      echo '<div class="col-md-6 offset-md-3 mt-5"><p>'.$_SESSION['msg'].'</p></div>';
+      $mensagem = $_SESSION['msg'];
+      echo '<div class="col-md-6 offset-md-3 mt-5"><p>'.$mensagem.'</p></div>';
       unset($_SESSION['msg']);
     }
   ?>
@@ -54,10 +52,10 @@
 	<div class="col-md-6 offset-md-3 mt-5">
         
         <h1>Sobre a publicação</h1>
-        <form  action="upload.php" method="POST" enctype="multipart/form-data">
+        <form  action="../control/processaUpload.php" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="exampleInputName" required="required">Título</label>
-            <input type="text" name="titulo" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Título...">
+            <input type="text" name="titulo" class="form-control" id="exampleInputName"  placeholder="Título..." required="required">
           </div>
           
           <div class="form-group">
@@ -81,7 +79,7 @@
           <hr>
           <div class="form-group mt-3">
             <label class="mr-2">Imagem do filme:</label>
-            <input type="file" name="arquivo">
+            <input type="file" name="arquivo" required="required">
           </div>
           <hr>
           <button type="submit" name="enviar" class="btn btn-primary">Publicar</button>

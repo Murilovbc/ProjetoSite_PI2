@@ -1,3 +1,7 @@
+<?php
+  session_start();
+  include_once("../control/conexao.php");
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +29,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
       <div class="navbar-brand">
-        <a class="nav-link" href="perfil.php"><font color="white">Suas Publicações,   </font></a> 
+        <a class="nav-link" href="perfil.php"><font color="white">Suas Publicações, <?php echo $_SESSION['nomeUsuario']; ?>  </font></a>
      </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -52,7 +56,21 @@
     
       <!-- Post Content Column -->
       <div class="col-lg-8">
-      	
+      	<?php  
+          $nome = $_SESSION['nomeUsuario'];
+          $inner = "SELECT * FROM PESSOAS JOIN PUBLICACAO ON PESSOAS.ID = PUBLICACAO.IDP WHERE PESSOAS.NOME = '{$nome}' ORDER BY PUBLICACAO.ID DESC";
+
+          $resultado_p = mysqli_query($conn, $inner);
+          while ($linhas_p = mysqli_fetch_assoc($resultado_p)) {
+            echo '<h1 class="mt-4">'.$linhas_p["TITULO"].'</h1>';
+            echo '<p class="lead">by '.$linhas_p["NOME"].'</p><hr>';
+            echo '<p>Publicado em '.$linhas_p["DATA"].'</p><hr>';
+            echo '<p>Gênero: '.$linhas_p["GENERO"].'</p><hr>';
+            echo '<img class="img-fluid rounded" src="../control/img/'.$linhas_p["IMAGEM"].'" width="600" height="200"/><hr>';
+            echo '<p>Análise do filme: </p>';
+            echo '<p>'.wordwrap($linhas_p["DESCRICAO"],75,'<br />',1).'</p><hr><hr>';
+          }
+        ?>
       </div>
 
     </div>

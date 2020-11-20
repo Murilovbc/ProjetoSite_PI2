@@ -25,7 +25,7 @@
 				<h3>Cadastrar</h3>
 			</div>
 			<div class="card-body">
-				<form method="POST" action="processaCadastro.php">
+				<form method="POST" action="../control/processaCadastro.php">
 					<div class="row align-items-center remember">
 						<?php
 							session_start();
