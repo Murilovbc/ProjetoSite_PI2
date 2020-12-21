@@ -37,10 +37,14 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
+            <a class="nav-link" href="post.php">Inicio</a>
+          </li>
+          <li class="nav-item active">
           	<a class="nav-link" href="upload.php">Publicar</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="post.php">Inicio</a>
+            <a class="nav-link" href="logOut.php">Sair
+            </a>
           </li>
         </ul>
       </div>
@@ -57,19 +61,31 @@
       <!-- Post Content Column -->
       <div class="col-lg-8">
       	<?php  
+          if (isset($_SESSION['msg'])){
+            $mensagem = $_SESSION['msg'];
+            echo '<div class="col-md-6 offset-md-3 mt-5"><p>'.$mensagem.'</p></div>';
+            unset($_SESSION['msg']);
+          }
+          
           $nome = $_SESSION['nomeUsuario'];
           $inner = "SELECT * FROM PESSOAS JOIN PUBLICACAO ON PESSOAS.ID = PUBLICACAO.IDP WHERE PESSOAS.NOME = '{$nome}' ORDER BY PUBLICACAO.ID DESC";
-
           $resultado_p = mysqli_query($conn, $inner);
-          while ($linhas_p = mysqli_fetch_assoc($resultado_p)) {
-            echo '<h1 class="mt-4">'.$linhas_p["TITULO"].'</h1>';
-            echo '<p class="lead">by '.$linhas_p["NOME"].'</p><hr>';
-            echo '<p>Publicado em '.$linhas_p["DATA"].'</p><hr>';
-            echo '<p>Gênero: '.$linhas_p["GENERO"].'</p><hr>';
-            echo '<img class="img-fluid rounded" src="../control/img/'.$linhas_p["IMAGEM"].'" width="600" height="200"/><hr>';
-            echo '<p>Análise do filme: </p>';
-            echo '<p>'.wordwrap($linhas_p["DESCRICAO"],75,'<br />',1).'</p><hr><hr>';
+
+          if(mysqli_num_rows($resultado_p)>0){
+            while ($linhas_p = mysqli_fetch_assoc($resultado_p)) {
+              echo '<h1 class="mt-4">'.$linhas_p["TITULO"].'</h1>';
+              echo '<p class="lead">by '.$linhas_p["NOME"].'</p><hr>';
+              echo '<p>Publicado em '.$linhas_p["DATA"].'</p><hr>';
+              echo '<p>Gênero: '.$linhas_p["GENERO"].'</p><hr>';
+              echo '<img class="img-fluid rounded" src="../control/img/'.$linhas_p["IMAGEM"].'" width="600" height="200"/><hr>';
+              echo '<p>Análise do filme: </p>';
+              echo '<p>'.wordwrap($linhas_p["DESCRICAO"],75,'<br />',1).'</p><hr>';
+              echo '<p class="lead"><a href=../control/processaExcluir.php?id='.$linhas_p["ID"].'>Excluir</a></p><hr><hr>';
+            }
           }
+          else{
+              echo "</br> Você ainda não possui publicações";
+            }
         ?>
       </div>
 

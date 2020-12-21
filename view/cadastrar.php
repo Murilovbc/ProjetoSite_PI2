@@ -5,14 +5,28 @@
 	<meta charset="utf-8">
 	<title>Cadastrar</title>
 
-	<!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-    <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-	<!--Custom styles-->
+	<link rel="stylesheet" href="css/bootstrap.min.css" >
 	<link rel="stylesheet" type="text/css" href="css/cadastrar.css">
+
+	<script src="vendor/jquery/jquery-3.5.1.min.js" type="text/javascript"></script>
+	<script type="text/javascript" language="javascript">
+	      $(document).ready(function(){
+	        $('#cadastrar').click(function(){
+	          var dados = $('#cadUsuario').serialize();
+	          $.ajax({
+	                type: 'POST',
+	                dataType: 'json',
+	                url: '../control/processaCadastro.php',
+	                data: dados,
+	                success: function(response) {
+	                    //location.reload();
+	                    alert(response);
+	                }
+	          });
+	          
+	        });
+	      });
+	</script>
 
 
 </head>
@@ -25,7 +39,7 @@
 				<h3>Cadastrar</h3>
 			</div>
 			<div class="card-body">
-				<form method="POST" action="../control/processaCadastro.php">
+				<form action="../control/processaCadastro.php" method="POST" id="cadUsuario">
 					<div class="row align-items-center remember">
 						<?php
 							session_start();
@@ -41,21 +55,21 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Usuário" name="nome">
+						<input type="text" class="form-control" placeholder="Usuário" name="nome" required="required">
 					</div>
 					<!--Email-->
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="email" class="form-control" placeholder="E-mail" name="email">	
+						<input type="email" class="form-control" placeholder="E-mail" name="email" required="required">	
 					</div>
 					<!--Senha-->
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Senha" name="password">
+						<input type="text" class="form-control" placeholder="Senha" name="password" required="required">
 					</div>
 					<!--Sexo-->
 					<div class="row align-items-center remember">
@@ -63,7 +77,7 @@
 						<input type="radio" value="feminino" name="sexo">Feminino
 					</div>
 					<div class="form-group">
-						<input type="submit" name="" value="cadastrar" class="btn float-right login_btn">
+						<input type="submit" name="cadastrar" value="cadastrar" class="btn float-right login_btn">
 					</div>
 				</form>
 			</div>

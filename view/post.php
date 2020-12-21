@@ -43,6 +43,10 @@
             <a class="nav-link" href="perfil.php">Perfil
             </a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="logOut.php">Sair
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -57,18 +61,35 @@
     
       <!-- Post Content Column -->
       <div class="col-lg-8">
-      	<?php  
-          $inner = "SELECT * FROM PESSOAS JOIN PUBLICACAO ON PESSOAS.ID = PUBLICACAO.IDP ORDER BY PUBLICACAO.ID DESC";
+      	<?php
+          if (isset($_GET["genero"]) && $_GET["genero"] != NULL) {
+            $gen = $_GET["genero"];
+            $inner = "SELECT * FROM PESSOAS JOIN PUBLICACAO ON PESSOAS.ID = PUBLICACAO.IDP WHERE PUBLICACAO.GENERO = '{$gen}' ORDER BY PUBLICACAO.ID DESC";
 
-          $resultado_p = mysqli_query($conn, $inner);
-          while ($linhas_p = mysqli_fetch_assoc($resultado_p)) {
-            echo '<h1 class="mt-4">'.$linhas_p["TITULO"].'</h1>';
-            echo '<p class="lead">by '.$linhas_p["NOME"].'</p><hr>';
-            echo '<p>Publicado em '.$linhas_p["DATA"].'</p><hr>';
-            echo '<p>Gênero: '.$linhas_p["GENERO"].'</p><hr>';
-            echo '<img class="img-fluid rounded" src="../control/img/'.$linhas_p["IMAGEM"].'" width="600" height="200"/><hr>';
-            echo '<p>Análise do filme: </p>';
-            echo '<p>'.wordwrap($linhas_p["DESCRICAO"],75,'<br />',1).'</p><hr><hr>';
+            $resultado_p = mysqli_query($conn, $inner);
+            while ($linhas_p = mysqli_fetch_assoc($resultado_p)) {
+              echo '<h1 class="mt-4">'.$linhas_p["TITULO"].'</h1>';
+              echo '<p class="lead">by '.$linhas_p["NOME"].'</p><hr>';
+              echo '<p>Publicado em '.$linhas_p["DATA"].'</p><hr>';
+              echo '<p>Gênero: '.$linhas_p["GENERO"].'</p><hr>';
+              echo '<img class="img-fluid rounded" src="../control/img/'.$linhas_p["IMAGEM"].'" width="600" height="200"/><hr>';
+              echo '<p>Análise do filme: </p>';
+              echo '<p>'.wordwrap($linhas_p["DESCRICAO"],75,'<br />',1).'</p><hr><hr>';
+            }
+          }
+          else{
+            $inner = "SELECT * FROM PESSOAS JOIN PUBLICACAO ON PESSOAS.ID = PUBLICACAO.IDP ORDER BY PUBLICACAO.ID DESC";
+
+            $resultado_p = mysqli_query($conn, $inner);
+            while ($linhas_p = mysqli_fetch_assoc($resultado_p)) {
+              echo '<h1 class="mt-4">'.$linhas_p["TITULO"].'</h1>';
+              echo '<p class="lead">by '.$linhas_p["NOME"].'</p><hr>';
+              echo '<p>Publicado em '.$linhas_p["DATA"].'</p><hr>';
+              echo '<p>Gênero: '.$linhas_p["GENERO"].'</p><hr>';
+              echo '<img class="img-fluid rounded" src="../control/img/'.$linhas_p["IMAGEM"].'" width="600" height="200"/><hr>';
+              echo '<p>Análise do filme: </p>';
+              echo '<p>'.wordwrap($linhas_p["DESCRICAO"],75,'<br />',1).'</p><hr><hr>';
+            }
           }
        ?>
       </div>
@@ -93,32 +114,32 @@
 
         <!-- Categories Widget -->
         <div class="card my-4">
-          <h5 class="card-header">Generos</h5>
+          <h5 class="card-header">Filtrar Gêneros</h5>
           <div class="card-body">
             <div class="row">
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
                   <li>
-                    <a href="acao.php">Ação</a>
+                    <a href=post.php?genero=Ação>Ação</a>
                   </li>
                   <li>
-                    <a href="terror.php">Terror</a>
+                    <a href=post.php?genero=Terror>Terror</a>
                   </li>
                   <li>
-                    <a href="ficcao.php">Ficção</a>
+                    <a href=post.php?genero=Ficção>Ficção</a>
                   </li>
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
                   <li>
-                    <a href="romance.php">Românce</a>
+                    <a href=post.php?genero=Românce>Românce</a>
                   </li>
                   <li>
-                    <a href="aventura.php">Aventura</a>
+                    <a href=post.php?genero=Aventura>Aventura</a>
                   </li>
                   <li>
-                    <a href="suspense.php">Suspense</a>
+                    <a href=post.php?genero=Suspense>Suspense</a>
                   </li>
                 </ul>
               </div>

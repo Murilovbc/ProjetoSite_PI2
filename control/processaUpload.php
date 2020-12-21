@@ -22,10 +22,12 @@
 		$linha = mysqli_fetch_assoc($selectID);
 		$id = $linha["ID"];
 		
-		$sql = "INSERT INTO PUBLICACAO (ID,IDP,TITULO,GENERO,DESCRICAO,IMAGEM,DATA) VALUES(NULL,'$id','$titulo','$genero','$str_analise','$novo_nome',NOW())";
+		$sql = "INSERT INTO PUBLICACAO (IDP,TITULO,GENERO,DESCRICAO,IMAGEM,DATA) VALUES('$id','$titulo','$genero','$str_analise','$novo_nome',NOW())";
 		$sql_code = mysqli_query($conn,$sql);
 		if ($sql_code) {
 			$_SESSION['msg'] = "Publicação Realizada com sucesso!!";
+			$response = array("success" => true);
+			echo json_encode($response);
 		}
 		else{
 			$_SESSION['msg'] = "Falha ao publicar";

@@ -24,8 +24,10 @@ if(isset($email)){
     else{
         $inserir_usuario = "INSERT INTO PESSOAS (NOME,EMAIL,SEXO,PASSWORD) VALUES ('$nome', '$email', '$sexo', '$password')";
         $cadastrado = mysqli_query($conn, $inserir_usuario);
-        if ($cadastrado) {
+        if ($cadastrado) {  
             header("Location: ../view/cadastro.php");
+            $response = array("success" => true);
+            echo json_encode($response);
         }
         else{
             $_SESSION['msg'] = "Falha no cadastro, tente novamente!";

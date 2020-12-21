@@ -15,7 +15,25 @@
 
   <!-- Custom styles for this template -->
   <link href="css/blog-post.css" rel="stylesheet">
-  
+  <script src="vendor/jquery/jquery-3.5.1.min.js" type="text/javascript"></script>
+  <script type="text/javascript" language="javascript">
+      $(document).ready(function(){
+        $('#enviar').click(function(){
+          var dados = $('#cadPubli').serialize();
+          $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '../control/processaUpload.php',
+                data: dados,
+                success: function(response) {
+                    //location.reload();
+                    alert(response);
+                }
+          });
+          
+        });
+      });
+  </script>
 </head>
 
 <body>
@@ -35,6 +53,10 @@
           <li class="nav-item active">
             <a class="nav-link" href="perfil.php">Perfil</a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="logOut.php">Sair
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -52,7 +74,7 @@
 	<div class="col-md-6 offset-md-3 mt-5">
         
         <h1>Sobre a publicação</h1>
-        <form  action="../control/processaUpload.php" method="POST" enctype="multipart/form-data">
+        <form  action="../control/processaUpload.php" method="POST" enctype="multipart/form-data" id="cadPubli">
           <div class="form-group">
             <label for="exampleInputName" required="required">Título</label>
             <input type="text" name="titulo" class="form-control" id="exampleInputName"  placeholder="Título..." required="required">
@@ -82,11 +104,13 @@
             <input type="file" name="arquivo" required="required">
           </div>
           <hr>
-          <button type="submit" name="enviar" class="btn btn-primary">Publicar</button>
+          <button type="submit" name="enviar" class="btn btn-primary" id="enviar">Publicar</button>
         </form>
     </div>
     <br>
     <br>
+
+    
     <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
