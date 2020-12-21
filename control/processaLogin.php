@@ -7,7 +7,7 @@ $password = md5($password);
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
 if(isset($email)){ 
-    if ($email == "admin@gmail.com") {
+    if ($email == "murilovbc@gmail.com") {
         header("Location: ../view/admin.php");
     }
     else{
